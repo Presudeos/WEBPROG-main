@@ -6,23 +6,28 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware dasar
-app.use(cors({ origin: 'null', credentials: true }));
+// --- PERBAIKAN CORS ---
+// 'origin: true' akan mengizinkan origin (asal) permintaan secara dinamis.
+// Ini jauh lebih baik daripada 'null' untuk development dan testing.
+app.use(cors({ origin: true, credentials: true }));
+// --------------------
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, // Pastikan SESSION_SECRET ada di Railway
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    // secure: false aman untuk development (http), 
+    // ganti ke true jika sudah di-deploy ke https
+    cookie: { secure: false } 
 }));
 
 // ******************************************************
-// === HEALTH CHECK ENDPOINT (DITAMBAHKAN DI SINI) ===
+// === HEALTH CHECK ENDPOINT ===
 // ******************************************************
 app.get('/health', (req, res) => {
-    // Mengirim respons 200 OK secara instan untuk menandakan server aktif
     res.status(200).json({
         status: 'OK',
         message: 'Aplikasi backend berjalan dengan baik.',
@@ -31,9 +36,7 @@ app.get('/health', (req, res) => {
 });
 // ******************************************************
 
-// === Koneksi Database (dari folder config)
-// Catatan: Jika koneksi DB Anda bersifat sinkron dan menyebabkan penundaan,
-// health check di atas akan tetap merespons cepat.
+// === Koneksi Database ===
 const db = require('./config/db'); 
 
 // === Import routes ===
@@ -52,20 +55,18 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/kritik', kritikRoutes);
 
 // ==========================================================
-// === PERUBAHAN UNTUK VERSEL DIMULAI DI SINI ===
+// === PERBAIKAN UNTUK RAILWAY (BUKAN VERCEL) ===
 // ==========================================================
 
-// 1. NONAKTIFKAN app.listen()
-// Vercel akan menangani port-nya sendiri
-/*
+// 1. PASTIKAN app.listen() AKTIF
+// Railway akan menyediakan 'process.env.PORT' secara otomatis
+// 30297 akan digunakan jika process.env.PORT tidak ada (misal, saat running lokal)
 const PORT = process.env.PORT || 30297;
 app.listen(PORT, () => console.log(`🚀 Server API berjalan di ${PORT}`));
-*/
 
-// 2. EKSPOR 'app' UNTUK VERSEL
-// Ini agar Vercel bisa mengambil alih file Express Anda
-module.exports = app;
 
-// ==========================================================
-// === PERUBAHAN UNTUK VERSEL SELESAI ===
+// 2. HAPUS 'module.exports'
+// Baris ini (module.exports = app;) telah dihapus karena ini hanya untuk Vercel.
+// Railway membutuhkan app.listen() untuk berjalan.
+
 // ==========================================================

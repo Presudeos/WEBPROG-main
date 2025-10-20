@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>GPdI Bethlehem</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/authCheck.js"></script>
+</head>
+<body>
+    <header>
+        </header>
+    <main class="container">
+        <div class="title-container">
+            <h2>Manajemen Data Jemaat</h2>
+            <a href="/index.html" class="btn-kembali">← Kembali ke Home</a>
+        </div>
+        
+        <button id="show-add-form-btn" class="btn-tambah-jemaat">Tambah Jemaat Baru</button>
+        
+        <div id="form-jemaat-container" style="display:none; margin-top: 1.5rem;">
+            <h3 id="form-title">Tambah Jemaat Baru</h3>
+            <form id="jemaat-form">
+                <input type="hidden" name="id" id="jemaat-id">
+                <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" required>
+                <textarea name="alamat" placeholder="Alamat"></textarea>
+                <input type="text" name="nomor_telepon" placeholder="Nomor Telepon">
+                <input type="date" name="tanggal_lahir">
+                <select name="jenis_kelamin">
+                    <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+                <button type="submit">Simpan</button>
+                <button type="button" id="cancel-edit-btn">Batal</button>
+            </form>
+        </div>
+        
+        <form id="search-sort-form" class="filter-form">
+            <input type="text" id="search-input" name="search" placeholder="Cari Nama/Email...">
+            <select id="sort-by" name="sort_by">
+                <option value="nama_lengkap">Urutkan Berdasarkan Nama</option>
+                <option value="id">Urutkan Berdasarkan ID</option>
+                <option value="tanggal_lahir">Urutkan Berdasarkan Tanggal Lahir</option>
+            </select>
+            <select id="sort-order" name="sort_order">
+                <option value="ASC">A -> Z (Ascending)</option>
+                <option value="DESC">Z -> A (Descending)</option>
+            </select>
+            <button type="submit">Cari / Filter</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Lengkap</th>
+                    <th>Alamat</th>
+                    <th>No. Telepon</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="jemaat-table-body">
+                </tbody>
+        </table>
+    </main>
+    <script src="/js/main.js"></script> 
+    <script src="/js/jemaat.js"></script>
+</body>
+</html>

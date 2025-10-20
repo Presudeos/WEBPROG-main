@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carameljc/WEBPROG.git"
+    "url": "git+https://github.com/Presudeos/WEBPROG-main.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/carameljc/WEBPROG/issues"
+    "url": "https://github.com/Presudeos/WEBPROG-main/issues"
   },
-  "homepage": "https://github.com/carameljc/WEBPROG#readme",
+  "homepage": "https://github.com/Presudeos/WEBPROG-main#readme",
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",

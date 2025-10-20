@@ -1,5 +1,5 @@
 // File: config/db.js
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 require('dotenv').config(); // Make sure dotenv is configured if running locally
 
 const pool = mysql.createPool({

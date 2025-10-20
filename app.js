@@ -51,5 +51,21 @@ app.use('/api/jemaat', jemaatRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/kritik', kritikRoutes);
 
+// ==========================================================
+// === PERUBAHAN UNTUK VERSEL DIMULAI DI SINI ===
+// ==========================================================
+
+// 1. NONAKTIFKAN app.listen()
+// Vercel akan menangani port-nya sendiri
+/*
 const PORT = process.env.PORT || 30297;
 app.listen(PORT, () => console.log(`🚀 Server API berjalan di ${PORT}`));
+*/
+
+// 2. EKSPOR 'app' UNTUK VERSEL
+// Ini agar Vercel bisa mengambil alih file Express Anda
+module.exports = app;
+
+// ==========================================================
+// === PERUBAHAN UNTUK VERSEL SELESAI ===
+// ==========================================================
